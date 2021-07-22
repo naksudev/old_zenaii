@@ -10,7 +10,7 @@ module.exports = class GuildCreate {
         let bot = this.bot;
 
         // Log event
-        console.log(`[LOG] ${guild.name} (${guild.id}) added me.`)
+        console.log(`[EVENT_LOG] ${guild.name} (${guild.id}) added me.`)
         // Apply server settings
         try {
             const settingsGuild = {

@@ -105,3 +105,6 @@ dist
 
 # lazygit
 lazygit.exe
+
+# vscode workspace folder
+.vscode

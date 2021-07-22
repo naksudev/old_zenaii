@@ -20,15 +20,15 @@ module.exports.run = async (bot, message, args, settings) => {
 			cmd = bot.commands.get(bot.aliases.get(command));
 		}
 		if(!cmd) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${settings.prefix}help\` for the list of the commands.`));
-		command = cmd.help;
-		embed.setTitle(`${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)} command`);
+		command = cmd;
+		embed.setTitle(`${command.help.name.slice(0, 1).toUpperCase() + command.help.name.slice(1)} command`);
 		embed.setDescription([
-			`❯ **Command:** ${command.name.slice(0, 1).toLowerCase() + command.name.slice(1)}`,
-			`❯ **Description:** ${command.description || "No Description provided."}`,
-			`❯ **Usage:** ${command.usage ? `\`${settings.prefix}${command.name} ${command.usage}\`` : `\`${settings.prefix}${command.name}\``} `,
-			`❯ **Aliases:** ${command.aliases ? command.aliases.join(", ") : "None"}`,
+			`❯ **Command:** ${command.help.name.slice(0, 1).toLowerCase() + command.help.name.slice(1)}`,
+			`❯ **Description:** ${command.help.description || "No Description provided."}`,
+			`❯ **Usage:** ${command.help.usage ? `\`${settings.prefix}${command.help.name} ${command.help.usage}\`` : `\`${settings.prefix}${command.help.name}\``} `,
+			`❯ **Aliases:** ${command.help.aliases ? command.help.aliases.join(", ") : "None"}`,
 			`❯ **Cooldown:** ${`${cmd.config.cooldown} seconds` || "No cooldown."}`,
-			`❯ **Category:** ${command.category.slice(0, 1).toUpperCase() + command.category.slice(1)}`,
+			`❯ **Category:** ${command.help.category.slice(0, 1).toUpperCase() + command.help.category.slice(1)}`,
 		].join("\n"));
 
 		return message.channel.send(embed);
