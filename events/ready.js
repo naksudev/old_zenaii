@@ -1,6 +1,6 @@
 const config = require("../config");
 
-module.exports = class ReadyEvent {
+module.exports = class Ready {
     
     constructor (bot) {
 
