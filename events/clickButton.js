@@ -2,7 +2,7 @@
 const { MessageButton } = require("discord-buttons");
 const Discord = require('discord.js');
 
-module.exports = class ClickButtonEvent {
+module.exports = class ClickButton {
     
     constructor (bot) {
 
@@ -13,24 +13,52 @@ module.exports = class ClickButtonEvent {
 
         let bot = this.bot;
         
-        // Rock, Paper, Scissors
+        // START - Rock, Paper, Scissors
         let outcomes = ['🧱','📰','✂️'];
         let botOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
         let result = "You lose.";
+        let choice;
 
         switch (button.id) {
             case 'rps_rock':
-                button.reply.defer();
-                
+                choice = "🧱"
+                await button.reply.defer(true);
+                if (botOutcome === "✂️") {
+                    result = "You win!";
+                } else if (botOutcome === "🧱") {
+                    result = "It's a draw!";
+                }
                 break;
             case 'rps_paper':
-                button.defer();
+                choice = "📰"
+                await button.reply.defer(true);
+                if (botOutcome === "🧱") {
+                    result = "You win!";
+                } else if (botOutcome === "📰") {
+                    result = "It's a draw!";
+                }
                 break;
             case 'rps_scissors':
-                button.defer();
+                choice = "✂️"
+                await button.reply.defer(true);
+                if (botOutcome === "📰") {
+                    result = "You win!";
+                } else if (botOutcome === "✂️") {
+                    result = "It's a draw!";
+                }
                 break;
             default:
                 break;
         }
+
+        const embedResultRPS = new Discord.MessageEmbed()
+            .setColor(Math.floor(Math.random() * 16777214) + 1)
+            .setTitle(`Rock, Paper, Scissors - Results 📊`)
+            .setDescription(`Me: ${botOutcome}\nYou: ${choice}\nResult: ${result}`)
+            .setTimestamp(button.message.createdAt)
+            .setFooter(`Challenged by ${button.clicker.user.tag}`, button.clicker.user.displayAvatarURL())
+
+        button.reply.edit({embed: embedResultRPS});
+        // END - Rock, Paper, Scissors
     }
 }
