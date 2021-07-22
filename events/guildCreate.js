@@ -1,4 +1,4 @@
-module.exports = class GuildCreateEvent {
+module.exports = class GuildCreate {
     
     constructor (bot) {
 

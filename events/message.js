@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 // Collection of users in cooldown
 const cooldowns = new Discord.Collection();
 
-module.exports = class MessageEvent {
+module.exports = class Message {
     
     constructor (bot) {
         
