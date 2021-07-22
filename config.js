@@ -3,7 +3,7 @@ const config = {
 	owners: ["263246215859142656"],
 	presence: {
 		activity: { 
-			name: `.help`,  
+			name: `d!help`,  
 			type: `PLAYING`
 		  },
 		status: 'online'
@@ -11,7 +11,7 @@ const config = {
 
 	// MongoDB default settings
 	DEFAULTSETTINGS: {
-		prefix: "."
+		prefix: "d!"
 	}
 }
 
