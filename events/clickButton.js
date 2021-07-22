@@ -13,7 +13,7 @@ module.exports = class ClickButton {
 
         let bot = this.bot;
         
-        // START - Rock, Paper, Scissors
+        /* RPS */
         let outcomes = ['🧱','📰','✂️'];
         let botOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
         let result = "You lose.";
@@ -59,6 +59,6 @@ module.exports = class ClickButton {
             .setFooter(`Challenged by ${button.clicker.user.tag}`, button.clicker.user.displayAvatarURL())
 
         button.reply.edit({embed: embedResultRPS});
-        // END - Rock, Paper, Scissors
+        /* End RPS */
     }
 }
