@@ -29,6 +29,6 @@ module.exports.help = {
 };
 
 module.exports.config = {
-    permission: ["ADMINISTRATOR"],
+    permission: "",
     cooldown: 5,
 };

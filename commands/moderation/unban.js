@@ -50,6 +50,6 @@ module.exports.help = {
 };
 
 module.exports.config = {
-	permission: "",
+	permission: ["BAN_MEMBERS"],
 	cooldown: 1,
 };

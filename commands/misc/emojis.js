@@ -16,6 +16,6 @@ module.exports.help = {
 };
 
 module.exports.config = {
-	permission: "",
+	permission: ["MANAGE_EMOJIS"],
 	cooldown: 2,
 };
