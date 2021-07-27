@@ -48,15 +48,12 @@ module.exports.run = async (bot, message, args) => {
     
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "dog",
 	aliases: ["woof", "doggo"],
 	description: "Shows a random pic of dogs.",
     usage: "",
 	category: "images",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 3,
+    permission: ["EMBED_LINKS"],
+	cooldown: 3
 };

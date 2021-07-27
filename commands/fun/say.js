@@ -5,15 +5,12 @@ module.exports.run = async (bot, message, args) => {
 	return message.channel.send(sayMessage);
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "say",
 	aliases: "",
 	description: "Replies with the text you provide.",
 	usage: "<message>",
 	category: "fun",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 1,
+    permission: [],
+	cooldown: 1
 };

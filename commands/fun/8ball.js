@@ -27,15 +27,12 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(embedresult);
 };
 
-module.exports.help = {
+module.exports.config = {
     name: "8ball",
     aliases: ["ask"],
     description: "Ask me anything.",
     usage: "<message>",
     category: "fun",
-};
-
-module.exports.config = {
-    permission: "",
-    cooldown: 2,
+    permission: [],
+    cooldown: 2
 };

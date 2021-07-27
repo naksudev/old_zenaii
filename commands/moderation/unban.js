@@ -3,53 +3,33 @@ const Discord= require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 	
-	let user = message.mentions.members.first();
-	const reasonArgs = args.slice(1).join(' ');
+	const user = args[0];
+	let reasonArgs = args.slice(1).join(' ');
 
-	if (!message.member.hasPermission("BAN_MEMBERS")) return;
-  
-	let member;
-  
-	if (user) {
-	  member = await message.guild.member(user);
-	}
-  
-	if (!user) {
-	  try {
-		const fetchedMember = await message.guild.member(args.slice(0, 1).join(' '));
-		if (!fetchedMember) throw new Error('User not found!');
-		member = fetchedMember;
-		user = fetchedMember;
-		user = user.user;
-	  } catch (error) {
-		return message.channel.send(`:question: | User not found! ${message.author}`);
-	  }
-	}
-  
-	if (user === message.author) return message.channel.send(`:x: | You can't ban yourself ! ${message.author}`);
+    if (!message.member.hasPermission("BAN_MEMBERS")) return;
 
-	if (!reasonArgs) return message.channel.send(`:x: | You need to put a reason to the ban ! ${message.author}`);
-  
-	if (!member.kickable) return message.channel.send(`:x: | I can't ban this user. He's too powerful. ${message.author}`);
-	await member.ban({days: daysArgs, reason: `Banned by ${message.author.username}${message.author.tag}\nReason : ${reasonArgs}`});
-  
-	const banembed = new Discord.MessageEmbed()
-	  .setAuthor('Unbanned', bot.user.displayAvatarURL())
-	  .setColor('#99ff66')
-	  .setDescription(`✅ ${member.user.tag} was unbanned.\nReason : ${reasonArgs}`)
-	  .setFooter(`Banned by ${message.author.tag}`, message.author.displayAvatarURL);
-	message.channel.send(banembed);
-};
+    if (!user) return message.reply(":question: | You must provide the ID of the user to unban him. Do \`banlist\`.");
 
-module.exports.help = {
-	name: "unban",
-	aliases: "",
-	description: "Ban a user from the server.",
-	usage: "<@User> [reason]",
-	category: "moderation",
+    const bans = await message.guild.fetchBans();
+    if (!bans.get(user)) return message.reply(":question: | The ID of the user you provided is not banned or doesn't exist.");
+
+	if(!reasonArgs) reasonArgs = "No reason provided.";
+
+    await message.guild.members.unban(user, {reason: `Unbanned by ${message.author.tag} | Reason : ${reasonArgs}`});
+
+    let banembed = new Discord.MessageEmbed()
+        .setColor('#99ff66')
+        .setDescription(`✅ <@${user}>`)
+        .setFooter(`Unbanned by ${message.author.tag}`, message.author.displayAvatarURL);
+    message.channel.send(banembed);
 };
 
 module.exports.config = {
-	permission: ["BAN_MEMBERS"],
-	cooldown: 1,
+	name: "unban",
+	aliases: "",
+	description: "Unban a user from the server.",
+	usage: "<@User> [reason]",
+	category: "moderation",
+    permission: ["BAN_MEMBERS"],
+	cooldown: 1
 };

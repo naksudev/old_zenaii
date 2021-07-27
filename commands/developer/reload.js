@@ -31,15 +31,12 @@ module.exports.run = async (bot, message, args, settings) => {
 	message.delete();
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "reload",
 	aliases: "",
 	description: "",
 	usage: "",
 	category: "developer",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 0,
+    permission: [],
+	cooldown: 0
 };

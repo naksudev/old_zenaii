@@ -21,14 +21,14 @@ module.exports.run = async (bot, message, args, settings) => {
 		}
 		if(!cmd) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${settings.prefix}help\` for the list of the commands.`));
 		command = cmd;
-		embed.setTitle(`${command.help.name.slice(0, 1).toUpperCase() + command.help.name.slice(1)} command`);
+		embed.setTitle(`${command.config.name.slice(0, 1).toUpperCase() + command.config.name.slice(1)} command`);
 		embed.setDescription([
-			`❯ **Command:** ${command.help.name.slice(0, 1).toLowerCase() + command.help.name.slice(1)}`,
-			`❯ **Description:** ${command.help.description || "No Description provided."}`,
-			`❯ **Usage:** ${command.help.usage ? `\`${settings.prefix}${command.help.name} ${command.help.usage}\`` : `\`${settings.prefix}${command.help.name}\``} `,
-			`❯ **Aliases:** ${command.help.aliases ? command.help.aliases.join(", ") : "None"}`,
+			`❯ **Command:** ${command.config.name.slice(0, 1).toLowerCase() + command.config.name.slice(1)}`,
+			`❯ **Description:** ${command.config.description || "No Description provided."}`,
+			`❯ **Usage:** ${command.config.usage ? `\`${settings.prefix}${command.config.name} ${command.config.usage}\`` : `\`${settings.prefix}${command.config.name}\``} `,
+			`❯ **Aliases:** ${command.config.aliases ? command.config.aliases.join(", ") : "None"}`,
 			`❯ **Cooldown:** ${`${cmd.config.cooldown} seconds` || "No cooldown."}`,
-			`❯ **Category:** ${command.help.category.slice(0, 1).toUpperCase() + command.help.category.slice(1)}`,
+			`❯ **Category:** ${command.config.category.slice(0, 1).toUpperCase() + command.config.category.slice(1)}`,
 		].join("\n"));
 
 		return message.channel.send(embed);
@@ -41,13 +41,13 @@ module.exports.run = async (bot, message, args, settings) => {
 		"**Reminder:** `<>` means needed and `[]` it is optional but don't include those.",
 	].join("\n"));
 	categories.forEach(category => {
-		const dir = bot.commands.filter(c => c.help.category.toLowerCase() === category.toLowerCase());
+		const dir = bot.commands.filter(c => c.config.category.toLowerCase() === category.toLowerCase());
 		const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1);
 
 		try {
 			if (dir.size === 0) return;
-			if (bot.CONFIG.owners.includes(message.author.id)) embed.addField(`❯ ${capitalise}`, dir.map(c => `\`${c.help.name}\``).join(", "));
-			else if (category !== "developer") embed.addField(`❯ ${capitalise}`, dir.map(c => `\`${c.help.name}\``).join(", "));
+			if (bot.CONFIG.owners.includes(message.author.id)) embed.addField(`❯ ${capitalise}`, dir.map(c => `\`${c.config.name}\``).join(", "));
+			else if (category !== "developer") embed.addField(`❯ ${capitalise}`, dir.map(c => `\`${c.config.name}\``).join(", "));
 		} catch (e) {
 			console.log(e);
 		}
@@ -55,15 +55,12 @@ module.exports.run = async (bot, message, args, settings) => {
 	return message.channel.send(embed);
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "help",
 	aliases: "",
 	description: "Shows the command or show more details about the specified command.",
 	usage: "[command]",
 	category: "misc",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 1.5,
+    permission: [],
+	cooldown: 1.5
 };

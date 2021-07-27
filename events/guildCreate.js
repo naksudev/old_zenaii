@@ -8,9 +8,7 @@ module.exports = class GuildCreate {
     async run (guild) {
         
         let bot = this.bot;
-
-        // Log event
-        console.log(`[EVENT_LOG] ${guild.name} (${guild.id}) added me.`)
+        
         // Apply server settings
         try {
             const settingsGuild = {

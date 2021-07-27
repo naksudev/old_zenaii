@@ -16,15 +16,12 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(embedavatar);
 };
 
-module.exports.help = {
+module.exports.config = {
     name: "avatar",
     aliases: "",
     description: "Shows the avatar of the mentionned user or yours if not.",
     usage: "[@User]",
     category: "images",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 3,
+    permission: ["EMBED_LINKS"],
+	cooldown: 3
 };

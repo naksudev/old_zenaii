@@ -4,15 +4,12 @@ module.exports.run = async (bot, message, args) => {
 	await msg.edit(`🏓 | Pong! ${msg.createdTimestamp - message.createdTimestamp}ms.`);
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "ping",
 	aliases: "",
 	description: "Ping a thing.",
 	usage: "",
 	category: "misc",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 3.5,
+    permission: [],
+	cooldown: 3.5
 };

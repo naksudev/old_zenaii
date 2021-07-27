@@ -8,6 +8,10 @@ const guildSchema = mongoose.Schema({
     prefix : {
         "type": String,
         "default": CONFIG.DEFAULTSETTINGS.prefix
+    },
+    language: {
+        "type": String,
+        "default": "english"
     }
 })
 

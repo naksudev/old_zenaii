@@ -1,6 +1,4 @@
 const { Client, Collection } = require("discord.js");
-
-// Dependencies
 const util = require("util");
 const fs = require("fs-extra");
 const readdir = util.promisify(fs.readdir);
@@ -8,13 +6,12 @@ const { sep } = require("path");
 const { success, error, warning } = require("log-symbols");
 const mongoose = require("mongoose");
 
-// Creating client & loading instances methods to use on commands
 const bot = new Client();
 require("./database/util/functions")(bot); 
 require("discord-buttons")(bot);	
 
 const CONFIG = require("./config");
-const EMOJIS = require("./assets/emojis.json");
+const EMOJIS = require("./assets/json/emojis.json");
 bot.CONFIG = CONFIG;
 bot.EMOJIS = EMOJIS;
 
@@ -28,21 +25,21 @@ const load = async (dir = "./commands/") => {
 		const commands = fs.readdirSync(`${dir}${sep}${dirs}${sep}`).filter(files => files.endsWith(".js"));
 
 		for (const file of commands) {
-			const pull = require(`${dir}/${dirs}/${file}`);
+			const cmd = require(`${dir}/${dirs}/${file}`);
 
-			if (pull.help && typeof (pull.help.name) === "string" && typeof (pull.help.category) === "string") {
-				if (bot.commands.get(pull.help.name)) return console.warn(`${warning} Two or more commands have the same name: ${pull.help.name}.`);
-				bot.commands.set(pull.help.name, pull);
-				console.log(`${success} Loaded command ${pull.help.name} from ${pull.help.category}.`);
+			if (cmd.config && typeof (cmd.config.name) === "string" && typeof (cmd.config.category) === "string") {
+				if (bot.commands.get(cmd.config.name)) return console.warn(`${warning} Two or more commands have the same name: ${cmd.config.name}.`);
+				bot.commands.set(cmd.config.name, cmd);
+				console.log(`${success} Loaded command ${cmd.config.name} from ${cmd.config.category}.`);
 			} else {
-				console.log(`${error} Error loading command in ${dir}${dirs}. You have a missing help.name or help.name is not a string. or you have a missing help.category or help.category is not a string`);
+				console.log(`${error} Error loading command in ${dir}${dirs}. You have a missing config.name or config.name is not a string. or you have a missing config.category or config.category is not a string`);
 				continue;
 			}
 
-			if (pull.help.aliases && typeof (pull.help.aliases) === "object") {
-				pull.help.aliases.forEach(alias => {
+			if (cmd.config.aliases && typeof (cmd.config.aliases) === "object") {
+				cmd.config.aliases.forEach(alias => {
 					if (bot.aliases.get(alias)) return console.warn(`${warning} Two commands or more commands have the same aliases: ${alias}`);
-					bot.aliases.set(alias, pull.help.name);
+					bot.aliases.set(alias, cmd.config.name);
 				});
 			}
 		}
@@ -65,6 +62,6 @@ const load = async (dir = "./commands/") => {
 	bot.mongoose.init();
 };
 
-load(); // Load commands, events and database.
+load(); // Load commands, events and connect to database.
 
 bot.login(process.env.TOKEN);

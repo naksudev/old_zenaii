@@ -1,4 +1,3 @@
-const { User } = require("discord.js");
 const mongoose = require("mongoose");
 const { Guild } = require("../models/index");
 
@@ -8,7 +7,7 @@ module.exports = bot => {
     bot.createGuild = async guild => {
         const merged = Object.assign({ _id: mongoose.Types.ObjectId() }, guild);
         const createGuild = await new Guild(merged);
-        createGuild.save().then(g => console.log(`[DB_LOG] ${g.guildName} has been added to the guilds collection.`));
+        createGuild.save().then(g => console.log(`[DB_LOG] ${g.guildName} (${g.guildID}) has been added to the guilds collection.`));
     };
 
     bot.getGuild = async guild => {
@@ -30,7 +29,7 @@ module.exports = bot => {
         const data = await Guild.findOne({ guildID: guild.id });
 		Guild.deleteOne(data, function(err) {
 			if (err) throw err;
-		});
+		}).then(g => console.log(`[DB_LOG] ${g.guildName} (${g.guildID}) has been removed of the guilds collection.`));
     }
 
     /* User */

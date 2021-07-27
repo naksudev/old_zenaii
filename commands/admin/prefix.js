@@ -1,3 +1,4 @@
+// Dependencies
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args, settings) => {
@@ -20,15 +21,12 @@ module.exports.run = async (bot, message, args, settings) => {
     } else return message.channel.send(`:x: | You need to put at least one character to change the prefix. ${message.author}`);
 };
 
-module.exports.help = {
+module.exports.config = {
     name: "prefix",
     aliases: ["setprefix"],
     description: "Changes the prefix of the bot.",
     usage: "<character>",
     category: "admin",
-};
-
-module.exports.config = {
-    permission: "",
-    cooldown: 5,
+    permission: [],
+    cooldown: 5
 };

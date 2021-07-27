@@ -2,16 +2,15 @@
 const Discord = require('discord.js');
 var dateFormat = require('dateformat');
 // Json files
-const verifLevels = require(`../../assets/verifLevels.json`);
-const region = require(`../../assets/regions.json`);
+const verifLevels = require(`../../assets/json/verifLevels.json`);
+const region = require(`../../assets/json/regions.json`);
 
 module.exports.run = async (bot, message, args, settings) => {
 
     const emojiList = message.guild.emojis.cache.map(e => `${e}`);
-    const verifiedemoji = bot.emojis.resolve(bot.EMOJIS.verified); // TODO: Change the emojis IDs
 
     let serverdesc =  new Discord.MessageEmbed()
-        .setAuthor(`${message.guild.name} ${message.guild.verified ? `${verifiedemoji}` : " "}`, message.guild.iconURL())
+        .setAuthor(`${message.guild.name}`, message.guild.iconURL())
         .setDescription(`ID: ${message.guild.id} \nVerification level: ${verifLevels[message.guild.verificationLevel]}`)
         .setColor(Math.floor(Math.random() * 16777214) + 1)
         .setThumbnail(message.guild.iconURL())
@@ -38,15 +37,12 @@ module.exports.run = async (bot, message, args, settings) => {
     message.channel.send(serverdesc);
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "serverinfo",
 	aliases: ["si", "serverdesc"],
 	description: "Shows more informations about the current guild.",
     usage: "",
 	category: "misc",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 2,
+    permission: [],
+	cooldown: 2
 };

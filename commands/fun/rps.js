@@ -30,15 +30,12 @@ module.exports.run = async (bot, message, args) => {
     });
 };
 
-module.exports.help = {
+module.exports.config = {
     name: "rps",
     aliases: ["rockpaperscissors"],
     description: "Plays Rock, Paper, Scissors with me.",
     usage: "",
     category: "fun",
-};
-
-module.exports.config = {
-    permission: "",
-    cooldown: 2,
+    permission: [],
+    cooldown: 2
 };

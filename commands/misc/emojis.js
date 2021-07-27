@@ -7,15 +7,13 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(`**Here is all the emojis of this server:** \n${emojiList}`);
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "emojis",
 	aliases: "",
 	description: "Lists all the custom emojis of the guild.",
 	usage: "",
 	category: "misc",
+    permission: ["MANAGE_EMOJIS"],
+	cooldown: 2
 };
 
-module.exports.config = {
-	permission: ["MANAGE_EMOJIS"],
-	cooldown: 2,
-};

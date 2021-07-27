@@ -16,15 +16,12 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send({embed});  
 };
 
-module.exports.help = {
+module.exports.config = {
 	name: "fox",
 	aliases: ["floof"],
 	description: "Shows a random pic of foxies.",
     usage: "",
 	category: "images",
-};
-
-module.exports.config = {
-	permission: "",
-	cooldown: 3,
+    permission: ["EMBED_LINKS"],
+	cooldown: 3
 };

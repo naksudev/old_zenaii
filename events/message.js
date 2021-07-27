@@ -42,8 +42,11 @@ module.exports = class Message {
 
         if (cmd && message.content.startsWith(settings.prefix)) {
             // Check if the commands needs permissions
-            // TODO: Fix this and pull to dev then merge to main 
-            if (!message.guild.me.hasPermission(cmd.config.permission)) return message.channel.send(`:x: | I don't have permission to use this command ! Do ${settings.prefix}help ${cmd.name} to check the permissions needed${message.author}`);
+            if(!cmd.config.permission.includes("SEND_MESSAGES", "EMBED_LINKS")) {
+                cmd.config.permission.push("SEND_MESSAGES", "EMBED_LINKS");
+            }
+            console.log(cmd.config.permission);
+            if (!message.guild.me.hasPermission(cmd.config.permission)) return message.channel.send(`:x: | I don't have permission to use this command ! Do \`${settings.prefix}help ${cmd.config.name}\` to check the permissions needed ${message.author}`);
 
             // Check to see if user is in 'cooldown'
             if (!cooldowns.has(cmd)) {

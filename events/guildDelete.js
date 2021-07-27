@@ -9,8 +9,6 @@ module.exports = class GuildDelete {
 
         let bot = this.bot;
         
-        // Log event
-        console.log(`[EVENT_LOG] ${guild.name} (${guild.id}) removed the bot.`);
         // Delete server settings
         await bot.deleteGuild(guild);
     }
